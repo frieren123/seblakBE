@@ -6,6 +6,7 @@ const createOrderListItem = async (orderListItemData) => {
         data: {
             orderlistId: orderListItemData.orderlistId,
             productsId: orderListItemData.productsId,
+            productPrice: orderListItemData.productPrice,
             qty: orderListItemData.qty
         }
     })

@@ -15,6 +15,7 @@ model Order {
   id        String      @id @default(uuid())
   client    String
   status    String
+  total     Int?
   orderlist Orderlist[]
 }
 
@@ -26,24 +27,28 @@ model Spicylevel {
 }
 
 model Orderlist {
-  createdAt     DateTime        @default(now())
-  id            String          @id @default(uuid())
-  orderId       String
-  order         Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  orderlistitem Orderlistitem[]
-  additional    String?
-  spicylevelId  Int
-  spicylevel    Spicylevel      @relation(fields: [spicylevelId], references: [id])
+  createdAt         DateTime        @default(now())
+  id                String          @id @default(uuid())
+  orderId           String
+  order             Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderlistitem     Orderlistitem[]
+  additional        String?
+  spicylevelPrice   Int?
+  total             Int?
+  spicylevelId      Int
+  spicylevel        Spicylevel      @relation(fields: [spicylevelId], references: [id])
 
 }
 
 model Orderlistitem {
-  id          String    @id @default(uuid())
-  orderlistId String
-  productsId  String
-  orderlist   Orderlist @relation(fields: [orderlistId], references: [id], onDelete: Cascade)
-  product     Products  @relation(fields: [productsId], references: [id], onDelete: Cascade)
-  qty         Int
+  id            String    @id @default(uuid())
+  orderlistId   String
+  productsId    String
+  qty           Int
+  productName   String?
+  productPrice  Int?
+  orderlist     Orderlist @relation(fields: [orderlistId], references: [id], onDelete: Cascade)
+  product       Products  @relation(fields: [productsId], references: [id], onDelete: Cascade)
 }
 
 model Products {
